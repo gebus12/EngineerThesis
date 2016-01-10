@@ -1,0 +1,97 @@
+﻿@model EngineerCodeFirst.Models.Driver
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Driver</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DriverID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DriverID)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DriverName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DriverName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DriverSurname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DriverSurname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DriverLogin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DriverLogin)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DriverPass)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DriverPass)
+        </dd>
+
+    </dl>
+    <table class="table">
+        <tr>
+            <th>
+                Bus RegNum
+            </th>
+        </tr>
+
+        @foreach (var item in Model.Buses)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RegNum)
+                </td>
+            </tr>
+        }
+    </table>
+    <table class="table">
+        <tr>
+            <th>
+                Line
+            </th>
+        </tr>
+
+        @foreach (var item in Model.Lines)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LineInfo)
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.DriverID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

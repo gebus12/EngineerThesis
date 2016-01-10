@@ -1,0 +1,77 @@
+﻿@model PagedList.IPagedList<EngineerCodeFirst.Models.Schedule>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Schedules";
+}
+
+<h2>Schedules</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+@using (Html.BeginForm("Index", "Schedules", FormMethod.Get))
+{
+    <p>
+        Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Search" />
+    </p>
+}
+<table class="table">
+    <tr>
+        <th>
+            Schedule ID
+        </th>
+        <th>
+            Line: Direction
+        </th>
+        <th>
+            City (Stop)
+        </th>
+        <th>
+            Bus Order
+        </th>
+        <th>
+            Departure Time
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ScheduleID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Line.LineInfo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Stop.StopInfo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BusOrder)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DepartureTime)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ScheduleID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ScheduleID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ScheduleID })
+        </td>
+    </tr>
+}
+
+</table>
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of
+@Model.PageCount
+@Html.PagedListPager(Model, page => Url.Action("Index",
+new
+{
+    page,
+    sortOrder = ViewBag.CurrentSort,
+    currentFilter =
+        ViewBag.CurrentFilter
+}))

@@ -1,0 +1,74 @@
+﻿@model IEnumerable<EngineerCodeFirst.Models.Line>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+@using (Html.BeginForm())
+{
+    <p>
+        Find by name: @Html.TextBox("SearchString")
+        <input type="submit" value="Search" />
+    </p>
+}
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.LineID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LineNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Direction)
+        </th>
+        <th>
+            Bus VIN
+        </th>
+        <th>
+            Drivers
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.LineID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LineNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Direction)
+        </td>
+        <td>
+            @{
+                foreach (var bus in item.Buses)
+                {
+                    @bus.RegNum <br />
+                }
+            }
+        </td>
+        <td>
+            @{
+                foreach (var driver in item.Drivers)
+                {
+                    @driver.DriverInfo <br />
+                }
+            }
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.LineID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.LineID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.LineID })
+        </td>
+    </tr>
+}
+
+</table>

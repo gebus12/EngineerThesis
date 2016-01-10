@@ -1,0 +1,73 @@
+﻿@model PagedList.IPagedList<EngineerCodeFirst.Models.Stop>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Stops";
+}
+
+<h2>Stops</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create", FormMethod.Get)
+</p>
+
+@using (Html.BeginForm())
+{
+    <p>
+        Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Search" />
+    </p>
+}
+
+<table class="table">
+    <tr>
+        <th>
+            Stop ID
+        </th>
+        <th>
+            City
+        </th>
+        <th>
+            Stop Name
+        </th>
+        <th>
+            Geo location
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.StopID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.City)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StopName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GeoLocation)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.StopID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.StopID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.StopID })
+        </td>
+    </tr>
+}
+
+</table>
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of
+@Model.PageCount
+@Html.PagedListPager(Model, page => Url.Action("Index",
+new
+{
+    page,
+    sortOrder = ViewBag.CurrentSort,
+    currentFilter =
+        ViewBag.CurrentFilter
+}))

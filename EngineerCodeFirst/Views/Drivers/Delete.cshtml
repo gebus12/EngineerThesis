@@ -1,0 +1,64 @@
+﻿@model EngineerCodeFirst.Models.Driver
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Driver</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DriverName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DriverName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DriverSurname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DriverSurname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DriverLogin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DriverLogin)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DriverPass)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DriverPass)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

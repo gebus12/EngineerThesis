@@ -1,0 +1,93 @@
+﻿@model IEnumerable<EngineerCodeFirst.Models.Driver>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+@using (Html.BeginForm())
+{
+    <p>
+        Find by name: @Html.TextBox("SearchString")
+        <input type="submit" value="Search" />
+    </p>
+}
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DriverID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DriverName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DriverSurname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DriverLogin)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DriverPass)
+        </th>
+        <th>
+            Buses
+        </th>
+        <th>
+            Lines
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.DriverID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DriverName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DriverSurname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DriverLogin)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DriverPass)
+        </td>
+        <td>
+            @{
+                foreach (var bus in item.Buses)
+                {
+                    @bus.RegNum <br />
+                }
+            }
+        </td>
+        <td>
+            @{
+                foreach (var line in item.Lines)
+                {
+                    @line.LineInfo <br />
+                }
+            }
+        </td>
+
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.DriverID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.DriverID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.DriverID })
+        </td>
+    </tr>
+}
+
+</table>
