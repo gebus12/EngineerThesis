@@ -79,7 +79,7 @@ namespace EngineerCodeFirst.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "BusID,RegNum,Status")] Bus bus, string[] selectedDrivers, string[] selectedLines)
+        public ActionResult Create([Bind(Include = "BusID,RegNum,Status,Latitude,Longitude")] Bus bus, string[] selectedDrivers, string[] selectedLines)
         {
 
             //******************* adding drivers **********************//
@@ -186,7 +186,7 @@ namespace EngineerCodeFirst.Controllers
 
 
             if (TryUpdateModel(busToUpdate, "",
-               new string[] { "BusID,RegNum,Status" }))
+               new string[] { "BusID","RegNum","Status","Latitude","Longitude" }))
             {
                 try
                 {

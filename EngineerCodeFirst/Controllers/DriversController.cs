@@ -171,7 +171,7 @@ namespace EngineerCodeFirst.Controllers
                .Single();
 
             if (TryUpdateModel(driverToUpdate, "",
-               new string[] { "DriverID,DriverName,DriverSurname,Status,DriverLogin,DriverPass" }))
+               new string[] { "DriverID","DriverName","DriverSurname","Status","DriverLogin","DriverPass" }))
             {
                 try
                 {
