@@ -41,6 +41,8 @@ namespace EngineerCodeFirst.DAL
         public virtual DbSet<Schedule> Schedules { get; set; }
         public virtual DbSet<Stop> Stops { get; set; }
 
+        public System.Data.Entity.DbSet<EngineerCodeFirst.Models.Message> Messages { get; set; }
+
 
     }
 }

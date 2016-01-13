@@ -144,6 +144,7 @@
     <Compile Include="Controllers\DriversController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LinesController.cs" />
+    <Compile Include="Controllers\MessagesController.cs" />
     <Compile Include="Controllers\SchedulesController.cs" />
     <Compile Include="Controllers\StopsController.cs" />
     <Compile Include="DAL\TransportPublicContext.cs" />
@@ -154,6 +155,7 @@
     <Compile Include="Models\Bus.cs" />
     <Compile Include="Models\Driver.cs" />
     <Compile Include="Models\Line.cs" />
+    <Compile Include="Models\Message.cs" />
     <Compile Include="Models\Schedule.cs" />
     <Compile Include="Models\Stop.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -230,6 +232,11 @@
     <Content Include="Views\Schedules\Details.cshtml" />
     <Content Include="Views\Schedules\Edit.cshtml" />
     <Content Include="Views\Schedules\Index.cshtml" />
+    <Content Include="Views\Messages\Create.cshtml" />
+    <Content Include="Views\Messages\Delete.cshtml" />
+    <Content Include="Views\Messages\Details.cshtml" />
+    <Content Include="Views\Messages\Edit.cshtml" />
+    <Content Include="Views\Messages\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

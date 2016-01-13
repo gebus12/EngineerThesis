@@ -27,7 +27,57 @@
             @Html.DisplayFor(model => model.Status)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.GeoLocation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GeoLocation)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Accessible)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Accessible)
+        </dd>
+
+        
+
     </dl>
+    <table class="table">
+        <tr>
+            <th>
+                Line
+            </th>
+        </tr>
+
+        @foreach (var item in Model.Lines)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LineInfo)
+                </td>
+            </tr>
+        }
+    </table>
+    <table class="table">
+        <tr>
+            <th>
+                Driver
+            </th>
+        </tr>
+
+        @foreach (var item in Model.Drivers)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DriverInfo)
+                </td>
+            </tr>
+        }
+    </table>
 
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()

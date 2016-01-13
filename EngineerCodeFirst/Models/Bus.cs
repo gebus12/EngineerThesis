@@ -11,6 +11,11 @@ namespace EngineerCodeFirst.Models
     //{
     //    ON, OFF
     //}
+
+    public enum Accessible
+    {
+        YES, NO
+    }
     public class Bus
     {
         
@@ -32,6 +37,8 @@ namespace EngineerCodeFirst.Models
                 return Latitude + ", " + Longitude;
             }
         }
+        [Display(Name = "Wheelchair accessibility")]
+        public Accessible? Accessible { get; set; }
         public virtual ICollection<Line> Lines { get; set; }
         public virtual ICollection<Driver> Drivers { get; set; }
     }

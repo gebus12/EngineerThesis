@@ -12,16 +12,16 @@ namespace EngineerCodeFirst.DAL
         {
             var buses = new List<Bus>
             {
-                new Bus{RegNum = "SGL A123",Status="OFF", Latitude = "50.288697", Longitude = "18.677784"},
-                new Bus{RegNum = "SGL B246",Status="OFF", Latitude = "50.288697", Longitude = "18.677784"},
-                new Bus{RegNum = "SGL C345",Status="ON", Latitude = "50.298375", Longitude = "18.680187"},
-                new Bus{RegNum = "SGL D468",Status="ON", Latitude = "50.298474", Longitude = "18.783238"},
-                new Bus{RegNum = "SGL E567",Status="OFF", Latitude = "50.288697", Longitude = "18.677784"},
-                new Bus{RegNum = "SGL F680",Status="ON", Latitude = "50.227779", Longitude = "18.656306"},
-                new Bus{RegNum = "SGL G789",Status="ON", Latitude = "50.2234821", Longitude = "18.7242504"},
-                new Bus{RegNum = "SGL H808",Status="OFF", Latitude = "50.288697", Longitude = "18.677784"},
-                new Bus{RegNum = "SGL I901",Status="OFF", Latitude = "50.288697", Longitude = "18.677784"},
-                new Bus{RegNum = "SGL J012",Status="OFF", Latitude = "50.288697", Longitude = "18.677784"},
+                new Bus{RegNum = "SGL A123",Status="OFF", Latitude = "50.288697", Longitude = "18.677784", Accessible = Accessible.NO},
+                new Bus{RegNum = "SGL B246",Status="OFF", Latitude = "50.288697", Longitude = "18.677784", Accessible = Accessible.NO},
+                new Bus{RegNum = "SGL C345",Status="ON", Latitude = "50.298375", Longitude = "18.680187", Accessible = Accessible.NO},
+                new Bus{RegNum = "SGL D468",Status="ON", Latitude = "50.298474", Longitude = "18.783238", Accessible = Accessible.NO},
+                new Bus{RegNum = "SGL E567",Status="OFF", Latitude = "50.288697", Longitude = "18.677784", Accessible = Accessible.YES},
+                new Bus{RegNum = "SGL F680",Status="ON", Latitude = "50.227779", Longitude = "18.656306", Accessible = Accessible.YES},
+                new Bus{RegNum = "SGL G789",Status="ON", Latitude = "50.2234821", Longitude = "18.7242504", Accessible = Accessible.YES},
+                new Bus{RegNum = "SGL H808",Status="OFF", Latitude = "50.288697", Longitude = "18.677784", Accessible = Accessible.YES},
+                new Bus{RegNum = "SGL I901",Status="OFF", Latitude = "50.288697", Longitude = "18.677784", Accessible = Accessible.YES},
+                new Bus{RegNum = "SGL J012",Status="OFF", Latitude = "50.288697", Longitude = "18.677784", Accessible = Accessible.YES},
                 /*
                  * defaultowo AEI:
                  * Latitude = "50.288697", Longitude = "18.677784"
