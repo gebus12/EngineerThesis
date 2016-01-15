@@ -1,4 +1,4 @@
-﻿@model EngineerCodeFirst.Models.Message
+﻿@model EngineerCodeFirst.Models.MsgDriver
 
 @{
     ViewBag.Title = "Create";
@@ -12,7 +12,7 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Message</h4>
+        <h4>MsgDriver</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -42,6 +42,9 @@
         <div class="form-group">
             @Html.LabelFor(model => model.TimeStamp, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
+                @* System.DateTime.Now nie dziala przy EditorFor \m/
+                    Html.EditorFor(model => model.TimeStamp, new { htmlAttributes = new { @class = "form-control" } }) 
+                *@
                 @Html.TextBoxFor(model => model.TimeStamp, new { Value = System.DateTime.Now })
                 @Html.ValidationMessageFor(model => model.TimeStamp, "", new { @class = "text-danger" })
             </div>

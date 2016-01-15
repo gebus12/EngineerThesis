@@ -1,4 +1,4 @@
-﻿@model EngineerCodeFirst.Models.Message
+﻿@model EngineerCodeFirst.Models.MsgDriver
 
 @{
     ViewBag.Title = "Edit";
@@ -12,10 +12,10 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Message</h4>
+        <h4>MsgDriver</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.MessageID)
+        @Html.HiddenFor(model => model.MsgDriverID)
 
         <div class="form-group">
             @Html.LabelFor(model => model.DriverID, htmlAttributes: new { @class = "control-label col-md-2" })

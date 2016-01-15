@@ -13,7 +13,7 @@ namespace EngineerCodeFirst.Models
         {
             this.Schedules = new HashSet<Schedule>();
         }
-    
+        [Display(Name = "ID")]
         public int StopID { get; set; }
         public string City { get; set; }
         public string StopName { get; set; }
@@ -21,7 +21,7 @@ namespace EngineerCodeFirst.Models
         public string Latitude { get; set; }
         [Required(ErrorMessage = "This field is required.")]
         public string Longitude { get; set; }
-
+        [Display(Name = "Location")]
         public string GeoLocation
         {
             get

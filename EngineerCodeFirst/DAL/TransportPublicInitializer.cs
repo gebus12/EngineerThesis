@@ -206,6 +206,14 @@ namespace EngineerCodeFirst.DAL
             };
             schedules.ForEach(s => context.Schedules.Add(s));
             context.SaveChanges();
+
+            var driverNotif = new List<MsgDriver>
+            {
+                new MsgDriver{DriverID = 2, BusID = 4, Text = "Traffic jam on Mikolowska Street", TimeStamp = System.DateTime.Now},
+                new MsgDriver{DriverID = 3, BusID = 7, Text = "Car accident on Dworcowa Street", TimeStamp = System.DateTime.Now},
+            };
+            driverNotif.ForEach(s => context.MsgDriver.Add(s));
+            context.SaveChanges();
         }
     }
 }

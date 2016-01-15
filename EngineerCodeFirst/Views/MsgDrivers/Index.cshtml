@@ -1,4 +1,4 @@
-﻿@model IEnumerable<EngineerCodeFirst.Models.Message>
+﻿@model IEnumerable<EngineerCodeFirst.Models.MsgDriver>
 
 @{
     ViewBag.Title = "Index";
@@ -11,6 +11,9 @@
 </p>
 <table class="table">
     <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.MsgDriverID)
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.DriverID)
         </th>
@@ -32,6 +35,9 @@
 @foreach (var item in Model) {
     <tr>
         <td>
+            @Html.DisplayFor(modelItem => item.MsgDriverID)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.DriverID)
         </td>
         <td>
@@ -47,9 +53,9 @@
             @Html.DisplayFor(modelItem => item.Status)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.MessageID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.MessageID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.MessageID })
+            @Html.ActionLink("Edit", "Edit", new { id=item.MsgDriverID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.MsgDriverID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.MsgDriverID })
         </td>
     </tr>
 }

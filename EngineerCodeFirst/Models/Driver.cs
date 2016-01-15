@@ -14,13 +14,17 @@ namespace EngineerCodeFirst.Models
             this.Buses = new HashSet<Bus>();
             this.Lines = new HashSet<Line>();
         }
-
+        [Display(Name = "ID")]
         public int DriverID { get; set; }
+        [Display(Name = "Name")]
         public string DriverName { get; set; }
+        [Display(Name = "Surname")]
         public string DriverSurname { get; set; }
        // public Status? Status { get; set; }
         public string Status { get; set; }
+        [Display(Name = "Login")]
         public string DriverLogin { get; set; }
+        [Display(Name = "Pass")]
         public string DriverPass { get; set; }
 
         [Display(Name = "Driver")]

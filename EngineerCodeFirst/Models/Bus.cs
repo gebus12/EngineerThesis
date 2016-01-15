@@ -24,12 +24,14 @@ namespace EngineerCodeFirst.Models
             this.Lines = new HashSet<Line>();
             this.Drivers = new HashSet<Driver>();
         }
-
+        [Display(Name = "ID")]
         public int BusID { get; set; }
+        [Display(Name = "Registration ID")]
         public string RegNum { get; set; }
         public string Status { get; set; }
         public string Latitude { get; set; }
         public string Longitude { get; set; }
+        [Display(Name = "Location")]
         public string GeoLocation
         {
             get

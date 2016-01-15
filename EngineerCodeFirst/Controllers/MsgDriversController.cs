@@ -11,107 +11,107 @@ using EngineerCodeFirst.Models;
 
 namespace EngineerCodeFirst.Controllers
 {
-    public class MessagesController : Controller
+    public class MsgDriversController : Controller
     {
         private TransportPublicContext db = new TransportPublicContext();
 
-        // GET: Messages
+        // GET: MsgDrivers
         public ActionResult Index()
         {
-            return View(db.Messages.ToList());
+            return View(db.MsgDriver.ToList());
         }
 
-        // GET: Messages/Details/5
+        // GET: MsgDrivers/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Message message = db.Messages.Find(id);
-            if (message == null)
+            MsgDriver msgDriver = db.MsgDriver.Find(id);
+            if (msgDriver == null)
             {
                 return HttpNotFound();
             }
-            return View(message);
+            return View(msgDriver);
         }
 
-        // GET: Messages/Create
+        // GET: MsgDrivers/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Messages/Create
+        // POST: MsgDrivers/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MessageID,DriverID,BusID,Text,TimeStamp,Status")] Message message)
+        public ActionResult Create([Bind(Include = "MsgDriverID,DriverID,BusID,Text,TimeStamp,Status")] MsgDriver msgDriver)
         {
             if (ModelState.IsValid)
             {
-                db.Messages.Add(message);
+                db.MsgDriver.Add(msgDriver);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(message);
+            return View(msgDriver);
         }
 
-        // GET: Messages/Edit/5
+        // GET: MsgDrivers/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Message message = db.Messages.Find(id);
-            if (message == null)
+            MsgDriver msgDriver = db.MsgDriver.Find(id);
+            if (msgDriver == null)
             {
                 return HttpNotFound();
             }
-            return View(message);
+            return View(msgDriver);
         }
 
-        // POST: Messages/Edit/5
+        // POST: MsgDrivers/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "MessageID,DriverID,BusID,Text,TimeStamp,Status")] Message message)
+        public ActionResult Edit([Bind(Include = "MsgDriverID,DriverID,BusID,Text,TimeStamp,Status")] MsgDriver msgDriver)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(message).State = EntityState.Modified;
+                db.Entry(msgDriver).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(message);
+            return View(msgDriver);
         }
 
-        // GET: Messages/Delete/5
+        // GET: MsgDrivers/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Message message = db.Messages.Find(id);
-            if (message == null)
+            MsgDriver msgDriver = db.MsgDriver.Find(id);
+            if (msgDriver == null)
             {
                 return HttpNotFound();
             }
-            return View(message);
+            return View(msgDriver);
         }
 
-        // POST: Messages/Delete/5
+        // POST: MsgDrivers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Message message = db.Messages.Find(id);
-            db.Messages.Remove(message);
+            MsgDriver msgDriver = db.MsgDriver.Find(id);
+            db.MsgDriver.Remove(msgDriver);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

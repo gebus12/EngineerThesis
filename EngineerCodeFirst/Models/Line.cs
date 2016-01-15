@@ -14,7 +14,7 @@ namespace EngineerCodeFirst.Models
             this.Buses = new HashSet<Bus>();
             this.Drivers = new HashSet<Driver>();
         }
-
+        [Display(Name = "ID")]
         public int LineID { get; set; }
         public int LineNumber { get; set; }
         public string Direction { get; set; }

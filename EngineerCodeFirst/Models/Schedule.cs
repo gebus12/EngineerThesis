@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -7,6 +8,7 @@ namespace EngineerCodeFirst.Models
 {
     public class Schedule
     {
+        [Display(Name = "ID")]
         public int ScheduleID { get; set; }
         public int BusOrder { get; set; }
         public string DepartureTime { get; set; }
