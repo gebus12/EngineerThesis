@@ -6,6 +6,47 @@
 
 <h2>Edit</h2>
 
+<style>
+    #map_canvas img {
+        max-width: none;
+    }
+</style>
+
+<!-- This is the div that will contain the Google Map -->
+<div id="map_canvas" style="height: 400px;"></div>
+
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBXs9W71W5gGrizWme0rLZ7xS69_deZP6I"></script>
+<script type="text/javascript">
+
+    var map;
+
+    function initialize() {
+        var myLatlng = new google.maps.LatLng(@Model.Latitude, @Model.Longitude);
+
+        var myOptions = {
+            zoom: 15,
+            center: myLatlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+
+        var marker = new google.maps.Marker({
+            draggable: true,
+            position: myLatlng,
+            map: map,
+            title: "Bus location"
+        });
+
+        google.maps.event.addListener(marker, 'dragend', function (event) {
+
+
+            document.getElementById("lat").value = event.latLng.lat();
+            document.getElementById("long").value = event.latLng.lng();
+        });
+    }
+    google.maps.event.addDomListener(window, "load", initialize());
+
+</script>
 
 @using (Html.BeginForm())
 {
@@ -36,7 +77,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Latitude, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Latitude, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Latitude, new { htmlAttributes = new { @class = "form-control", @id = "lat" } })
                 @Html.ValidationMessageFor(model => model.Latitude, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -44,7 +85,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Longitude, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Longitude, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Longitude, new { htmlAttributes = new { @class = "form-control", @id = "long" } })
                 @Html.ValidationMessageFor(model => model.Longitude, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -74,7 +115,7 @@
             @:</tr><tr>
                                 }
                                 @:<td>
-                                    <input type="checkbox"
+                                    <input type="radio"
                                            name="selectedDrivers"
                                            value="@driver.DriverID"
                                            @(Html.Raw(driver.Assigned ? "checked=\"checked\"" : "")) />
@@ -107,7 +148,7 @@
             @:</tr><tr>
                                 }
                                 @:<td>
-                                        <input type="checkbox"
+                                        <input type="radio"
                                                name="selectedLines"
                                                value="@line.LineID"
                                                @(Html.Raw(line.Assigned ? "checked=\"checked\"" : "")) />

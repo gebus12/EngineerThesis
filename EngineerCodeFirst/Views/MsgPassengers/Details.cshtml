@@ -1,0 +1,66 @@
+﻿@model EngineerCodeFirst.Models.MsgPassenger
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>MsgPassenger</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.MsgPassengerID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MsgPassengerID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BusID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BusID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ValidityPeriod)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ValidityPeriod)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Text)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Text)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TimeStamp)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TimeStamp)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MsgPassengerID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
