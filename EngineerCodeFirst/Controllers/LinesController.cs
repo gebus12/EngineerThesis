@@ -141,5 +141,30 @@ namespace EngineerCodeFirst.Controllers
             }
             base.Dispose(disposing);
         }
+
+        //********************************//
+        // Methods for mobile applications
+        [HttpGet]
+        public ActionResult GetAllLines()
+        {
+            List<Line> allWebLines = db.Lines.ToList();
+            List<LineForApps> allAppLines = new List<LineForApps>();
+            if (allWebLines != null)
+            {
+                foreach (Line x in allWebLines)
+                {
+                    allAppLines.Add(new LineForApps(x));
+                }
+                return Json(allAppLines, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                String message = "Empty result"; // change this value to some global constant
+                return Json(message, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+
+
     }
 }

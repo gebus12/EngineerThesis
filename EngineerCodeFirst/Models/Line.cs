@@ -31,4 +31,24 @@ namespace EngineerCodeFirst.Models
         public virtual ICollection<Bus> Buses { get; set; }
         public virtual ICollection<Driver> Drivers { get; set; }
     }
+
+    public class LineForApps
+    {
+
+        public LineForApps(Line lineToBeTransfered)
+        {
+            this.LineID = lineToBeTransfered.LineID;
+            this.LineNumber = lineToBeTransfered.LineNumber;
+            this.Direction = lineToBeTransfered.Direction;
+        }
+
+        public LineForApps()
+        {
+        }
+
+        public int LineID { get; set; }
+        public int LineNumber { get; set; }
+        public string Direction { get; set; }
+
+    }
 }
