@@ -63,12 +63,12 @@ namespace EngineerCodeFirst.Controllers
         // GET: Drivers/Create
         public ActionResult Create()
         {
-            //***************** adding lines ******************//
-            var driver = new Driver();
+            ////***************** adding lines ******************//
+            //var driver = new Driver();
 
-            driver.Lines = new List<Line>();
-            PopulateAssignedLineData(driver);
-            //************************************************//
+            //driver.Lines = new List<Line>();
+            //PopulateAssignedLineData(driver);
+            ////************************************************//
 
             return View();
         }
@@ -78,19 +78,19 @@ namespace EngineerCodeFirst.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "DriverID,DriverName,DriverSurname,Status,DriverLogin,DriverPass")] Driver driver, string[] selectedLines)
+        public ActionResult Create([Bind(Include = "DriverID,DriverName,DriverSurname,Status,DriverLogin,DriverPass")] Driver driver)
         {
-            //******************* adding lines **********************//
-            if (selectedLines != null)
-            {
-                driver.Lines = new List<Line>();
-                foreach (var line in selectedLines)
-                {
-                    var lineToAdd = db.Lines.Find(int.Parse(line));
-                    driver.Lines.Add(lineToAdd);
-                }
-            }
-            //************************************************//
+            ////******************* adding lines **********************//
+            //if (selectedLines != null)
+            //{
+            //    driver.Lines = new List<Line>();
+            //    foreach (var line in selectedLines)
+            //    {
+            //        var lineToAdd = db.Lines.Find(int.Parse(line));
+            //        driver.Lines.Add(lineToAdd);
+            //    }
+            //}
+            ////************************************************//
 
 
 
@@ -101,9 +101,9 @@ namespace EngineerCodeFirst.Controllers
                 return RedirectToAction("Index");
             }
 
-            //************************************************//
-            PopulateAssignedLineData(driver);
-            //************************************************//
+            ////************************************************//
+            //PopulateAssignedLineData(driver);
+            ////************************************************//
 
             return View(driver);
         }
@@ -117,15 +117,15 @@ namespace EngineerCodeFirst.Controllers
             }
 
 
-            //Driver driver = db.Drivers.Find(id);
+            Driver driver = db.Drivers.Find(id);
 
-            //************** editing lines ********************//
-            Driver driver = db.Drivers
-                .Include(i => i.Lines)
-                .Where(i => i.DriverID == id)
-                .Single();
-            PopulateAssignedLineData(driver);
-            //************************************************//
+            ////************** editing lines ********************//
+            //Driver driver = db.Drivers
+            //    .Include(i => i.Lines)
+            //    .Where(i => i.DriverID == id)
+            //    .Single();
+            //PopulateAssignedLineData(driver);
+            ////************************************************//
 
 
 
@@ -139,7 +139,7 @@ namespace EngineerCodeFirst.Controllers
         // POST: Drivers/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        /*
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "DriverID,DriverName,DriverSurname,Status,DriverLogin,DriverPass")] Driver driver)
@@ -152,11 +152,11 @@ namespace EngineerCodeFirst.Controllers
             }
             return View(driver);
         }
-        */
+        
 
-
+        
         //************** editing with drivers and lines ********************//
-
+        /*
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int? id, string[] selectedLines)
@@ -175,20 +175,21 @@ namespace EngineerCodeFirst.Controllers
             {
                 try
                 {
-                    UpdateDriverLines(selectedLines, driverToUpdate); //****** added for lines *******//
+                    UpdateDriverLines(selectedLines, driverToUpdate); // added for lines
                     db.SaveChanges();
 
                     return RedirectToAction("Index");
                 }
-                catch (RetryLimitExceededException /* dex */)
+                catch (RetryLimitExceededException ) // dex
                 {
                     //Log the error (uncomment dex variable name and add a line here to write a log.
                     ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
                 }
             }
-            PopulateAssignedLineData(driverToUpdate); //****** added for lines *******//
+            PopulateAssignedLineData(driverToUpdate); //****** added for lines
             return View(driverToUpdate);
         }
+         */
 
         //************************************************//
 
@@ -231,57 +232,57 @@ namespace EngineerCodeFirst.Controllers
 
 
 
-        //********************** adding lines ******************//
-        private void PopulateAssignedLineData(Driver driver)
-        {
-            var allLines = db.Lines;
-            var busLines = new HashSet<int>(driver.Lines.Select(c => c.LineID));
-            var viewModel = new List<AssignedLineData>();
-            foreach (var line in allLines)
-            {
-                viewModel.Add(new AssignedLineData
-                {
-                    LineID = line.LineID,
-                    Direction = line.Direction,
-                    LineNumber = line.LineNumber,
-                    Assigned = busLines.Contains(line.LineID)
-                });
-            }
-            ViewBag.Lines = viewModel;
-        }
-        //************************************************//
+        ////********************** adding lines ******************//
+        //private void PopulateAssignedLineData(Driver driver)
+        //{
+        //    var allLines = db.Lines;
+        //    var busLines = new HashSet<int>(driver.Lines.Select(c => c.LineID));
+        //    var viewModel = new List<AssignedLineData>();
+        //    foreach (var line in allLines)
+        //    {
+        //        viewModel.Add(new AssignedLineData
+        //        {
+        //            LineID = line.LineID,
+        //            Direction = line.Direction,
+        //            LineNumber = line.LineNumber,
+        //            Assigned = busLines.Contains(line.LineID)
+        //        });
+        //    }
+        //    ViewBag.Lines = viewModel;
+        //}
+        ////************************************************//
 
-        //**************** editing lines ***********************//
-        private void UpdateDriverLines(string[] selectedLines, Driver driverToUpdate)
-        {
-            if (selectedLines == null)
-            {
-                driverToUpdate.Lines = new List<Line>();
-                return;
-            }
+        ////**************** editing lines ***********************//
+        //private void UpdateDriverLines(string[] selectedLines, Driver driverToUpdate)
+        //{
+        //    if (selectedLines == null)
+        //    {
+        //        driverToUpdate.Lines = new List<Line>();
+        //        return;
+        //    }
 
-            var selectedLinesHS = new HashSet<string>(selectedLines);
-            var busLines = new HashSet<int>
-                (driverToUpdate.Lines.Select(c => c.LineID));
-            foreach (var line in db.Lines)
-            {
-                if (selectedLinesHS.Contains(line.LineID.ToString()))
-                {
-                    if (!busLines.Contains(line.LineID))
-                    {
-                        driverToUpdate.Lines.Add(line);
-                    }
-                }
-                else
-                {
-                    if (busLines.Contains(line.LineID))
-                    {
-                        driverToUpdate.Lines.Remove(line);
-                    }
-                }
-            }
-        }
-        //************************************************//
+        //    var selectedLinesHS = new HashSet<string>(selectedLines);
+        //    var busLines = new HashSet<int>
+        //        (driverToUpdate.Lines.Select(c => c.LineID));
+        //    foreach (var line in db.Lines)
+        //    {
+        //        if (selectedLinesHS.Contains(line.LineID.ToString()))
+        //        {
+        //            if (!busLines.Contains(line.LineID))
+        //            {
+        //                driverToUpdate.Lines.Add(line);
+        //            }
+        //        }
+        //        else
+        //        {
+        //            if (busLines.Contains(line.LineID))
+        //            {
+        //                driverToUpdate.Lines.Remove(line);
+        //            }
+        //        }
+        //    }
+        //}
+        ////************************************************//
         //***Methods For App support***////
         //[HttpGet]
         public ActionResult LoginDriver()

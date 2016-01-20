@@ -34,14 +34,11 @@
             @Html.DisplayNameFor(model => model.DriverLogin)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DriverPass)
-        </th>
-        <th>
             Buses
         </th>
-        <th>
+        @*<th>
             Lines
-        </th>
+        </th>*@
         <th></th>
     </tr>
 
@@ -63,9 +60,6 @@
             @Html.DisplayFor(modelItem => item.DriverLogin)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.DriverPass)
-        </td>
-        <td>
             @{
                 foreach (var bus in item.Buses)
                 {
@@ -73,14 +67,14 @@
                 }
             }
         </td>
-        <td>
+        @*<td>
             @{
                 foreach (var line in item.Lines)
                 {
                     @line.LineInfo <br />
                 }
             }
-        </td>
+        </td>*@
 
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.DriverID }) |

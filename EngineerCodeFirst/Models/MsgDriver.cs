@@ -22,8 +22,11 @@ namespace EngineerCodeFirst.Models
          * POBIERANIE AKTUALNEJ DATY przy tworzeniu obiektu:
          * http://weblogs.asp.net/jalpeshpvadgama/setting-default-value-for-html-editorfor-in-asp-net-mvc
          * ale u mnie nie dziala tak do konca - nie pokazuje tej daty przy create w View
-         * moze Tobie sie uda :P
+         * moze Tobie sie uda/przyda :P
          */
+
+
+        [DataType(DataType.Date)]
         public DateTime TimeStamp { get; set; }
         public Status? Status { get; set; }
         

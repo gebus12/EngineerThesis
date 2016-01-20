@@ -64,7 +64,7 @@ namespace EngineerCodeFirst.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "LineID,LineNumber,Direction")] Line line)
+        public ActionResult Create([Bind(Include = "LineID,LineNumber,Direction,Status,ScheduleType")] Line line)
         {
             if (ModelState.IsValid)
             {
@@ -96,7 +96,7 @@ namespace EngineerCodeFirst.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "LineID,LineNumber,Direction")] Line line)
+        public ActionResult Edit([Bind(Include = "LineID,LineNumber,Direction,Status,ScheduleType")] Line line)
         {
             if (ModelState.IsValid)
             {

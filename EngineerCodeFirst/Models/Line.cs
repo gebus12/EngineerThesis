@@ -6,30 +6,39 @@ using System.Web;
 
 namespace EngineerCodeFirst.Models
 {
+    public enum ScheduleType
+    {
+        REGULAR, WEEKDAY, HOLIDAY
+    }
     public class Line
     {
         public Line()
         {
             this.Schedules = new HashSet<Schedule>();
             this.Buses = new HashSet<Bus>();
-            this.Drivers = new HashSet<Driver>();
+            //this.Drivers = new HashSet<Driver>();
         }
         [Display(Name = "ID")]
         public int LineID { get; set; }
+        [Display(Name = "Line Number")]
         public int LineNumber { get; set; }
+        [Display(Name = "Direction")]
         public string Direction { get; set; }
+        public string Status { get; set; }
+        [Display(Name = "Schedule Type")]
+        public ScheduleType? ScheduleType { get; set; }
 
-        [Display(Name = "Line: Direction")]
+        [Display(Name = "Line: Direction (Type)")]
         public string LineInfo
         {
             get
             {
-                return LineNumber + ": " + Direction;
+                return LineNumber + ": " + Direction + " (" + ScheduleType + ")";
             }
         }
         public virtual ICollection<Schedule> Schedules { get; set; }
         public virtual ICollection<Bus> Buses { get; set; }
-        public virtual ICollection<Driver> Drivers { get; set; }
+        //public virtual ICollection<Driver> Drivers { get; set; }
     }
 
     public class LineForApps

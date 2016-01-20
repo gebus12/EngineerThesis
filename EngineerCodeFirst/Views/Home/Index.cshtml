@@ -5,9 +5,9 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="jumbotron">
+@*<div class="jumbotron">
     <h2>Transport Public</h2>
-</div>
+</div>*@
 
 <div class="row">
     <div class="col-md-6">
@@ -76,6 +76,9 @@
                     </td>
                     <td>
                         @item.TimeStamp
+                    </td>
+                    <td>
+                        @Html.ActionLink("Mark as read", "MarkAsRead", "MsgDrivers", new { id = item.MsgDriverID }, null)
                     </td>
                 </tr>
             }

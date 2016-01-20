@@ -27,12 +27,12 @@ namespace EngineerCodeFirst.DAL
                m.MapRightKey("LineID");
                m.ToTable("BusLine");
            });
-            modelBuilder.Entity<Driver>().HasMany(b => b.Lines).WithMany(d => d.Drivers).Map(m =>
-            {
-                m.MapLeftKey("DriverID");
-                m.MapRightKey("LineID");
-                m.ToTable("DriverLine");
-            });
+            //modelBuilder.Entity<Driver>().HasMany(b => b.Lines).WithMany(d => d.Drivers).Map(m =>
+            //{
+            //    m.MapLeftKey("DriverID");
+            //    m.MapRightKey("LineID");
+            //    m.ToTable("DriverLine");
+            //});
         }
 
         public virtual DbSet<Bus> Buses { get; set; }
@@ -40,6 +40,8 @@ namespace EngineerCodeFirst.DAL
         public virtual DbSet<Line> Lines { get; set; }
         public virtual DbSet<Schedule> Schedules { get; set; }
         public virtual DbSet<Stop> Stops { get; set; }
+
+        public virtual DbSet<History> Histories { get; set; }
 
         public System.Data.Entity.DbSet<EngineerCodeFirst.Models.MsgDriver> MsgDriver { get; set; }
 

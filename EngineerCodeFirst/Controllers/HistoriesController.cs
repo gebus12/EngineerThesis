@@ -11,141 +11,112 @@ using EngineerCodeFirst.Models;
 
 namespace EngineerCodeFirst.Controllers
 {
-    public class MsgDriversController : Controller
+    public class HistoriesController : Controller
     {
         private TransportPublicContext db = new TransportPublicContext();
 
-        // GET: MsgDrivers
+        // GET: Histories
         public ActionResult Index()
         {
-            return View(db.MsgDriver.ToList());
+            var histories = db.Histories.Include(h => h.Driver);
+            return View(histories.ToList());
         }
 
-        // GET: MsgDrivers/Details/5
+        // GET: Histories/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            MsgDriver msgDriver = db.MsgDriver.Find(id);
-            if (msgDriver == null)
+            History history = db.Histories.Find(id);
+            if (history == null)
             {
                 return HttpNotFound();
             }
-            return View(msgDriver);
+            return View(history);
         }
 
-        // GET: MsgDrivers/Create
+        // GET: Histories/Create
         public ActionResult Create()
         {
+            ViewBag.DriverID = new SelectList(db.Drivers, "DriverID", "DriverInfo");
             return View();
         }
 
-        // POST: MsgDrivers/Create
+        // POST: Histories/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MsgDriverID,DriverID,BusID,Text,TimeStamp,Status")] MsgDriver msgDriver)
+        public ActionResult Create([Bind(Include = "HistoryID,StartTime,EndTime,DriverID")] History history)
         {
             if (ModelState.IsValid)
             {
-                db.MsgDriver.Add(msgDriver);
+                db.Histories.Add(history);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(msgDriver);
+            ViewBag.DriverID = new SelectList(db.Drivers, "DriverID", "DriverName", history.DriverID);
+            return View(history);
         }
 
-        // GET: MsgDrivers/Edit/5
+        // GET: Histories/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            MsgDriver msgDriver = db.MsgDriver.Find(id);
-            if (msgDriver == null)
+            History history = db.Histories.Find(id);
+            if (history == null)
             {
                 return HttpNotFound();
             }
-            return View(msgDriver);
+            ViewBag.DriverID = new SelectList(db.Drivers, "DriverID", "DriverName", history.DriverID);
+            return View(history);
         }
 
-
-
-
-        // GET: MsgDrivers/MarkAsRead/5
-        public ActionResult MarkAsRead(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            MsgDriver msgDriver = db.MsgDriver.Find(id);
-            if (msgDriver == null)
-            {
-                return HttpNotFound();
-            }
-            msgDriver.Status = Status.Read;
-            db.SaveChanges();
-            return RedirectToAction("Index", "Home");
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult MarkAsRead([Bind(Include = "MsgDriverID,DriverID,BusID,Text,TimeStamp,Status")] MsgDriver msgDriver)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(msgDriver).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(msgDriver);
-        }
-
-
-        // POST: MsgDrivers/Edit/5
+        // POST: Histories/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "MsgDriverID,DriverID,BusID,Text,TimeStamp,Status")] MsgDriver msgDriver)
+        public ActionResult Edit([Bind(Include = "HistoryID,StartTime,EndTime,DriverID")] History history)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(msgDriver).State = EntityState.Modified;
+                db.Entry(history).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(msgDriver);
+            ViewBag.DriverID = new SelectList(db.Drivers, "DriverID", "DriverName", history.DriverID);
+            return View(history);
         }
 
-        // GET: MsgDrivers/Delete/5
+        // GET: Histories/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            MsgDriver msgDriver = db.MsgDriver.Find(id);
-            if (msgDriver == null)
+            History history = db.Histories.Find(id);
+            if (history == null)
             {
                 return HttpNotFound();
             }
-            return View(msgDriver);
+            return View(history);
         }
 
-        // POST: MsgDrivers/Delete/5
+        // POST: Histories/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            MsgDriver msgDriver = db.MsgDriver.Find(id);
-            db.MsgDriver.Remove(msgDriver);
+            History history = db.Histories.Find(id);
+            db.Histories.Remove(history);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

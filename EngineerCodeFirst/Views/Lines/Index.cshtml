@@ -28,11 +28,17 @@
             @Html.DisplayNameFor(model => model.Direction)
         </th>
         <th>
-            Bus VIN
+            @Html.DisplayNameFor(model => model.Status)
         </th>
         <th>
-            Drivers
+            @Html.DisplayNameFor(model => model.ScheduleType)
         </th>
+        <th>
+            Bus VIN
+        </th>
+        @*<th>
+            Drivers
+        </th>*@
         <th></th>
     </tr>
 
@@ -48,6 +54,12 @@
             @Html.DisplayFor(modelItem => item.Direction)
         </td>
         <td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ScheduleType)
+        </td>
+        <td>
             @{
                 foreach (var bus in item.Buses)
                 {
@@ -55,14 +67,14 @@
                 }
             }
         </td>
-        <td>
+        @*<td>
             @{
                 foreach (var driver in item.Drivers)
                 {
                     @driver.DriverInfo <br />
                 }
             }
-        </td>
+        </td>*@
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.LineID }) |
             @Html.ActionLink("Details", "Details", new { id=item.LineID }) |

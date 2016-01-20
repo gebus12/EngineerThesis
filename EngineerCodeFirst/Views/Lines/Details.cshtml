@@ -33,6 +33,20 @@
             @Html.DisplayFor(model => model.Direction)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ScheduleType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ScheduleType)
+        </dd>
     </dl>
     <table class="table">
         <tr>
@@ -72,7 +86,7 @@
             </tr>
         }
     </table>
-    <table class="table">
+    @*<table class="table">
         <tr>
             <th>
                 Driver
@@ -87,7 +101,7 @@
                 </td>
             </tr>
         }
-    </table>
+    </table>*@
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.LineID }) |

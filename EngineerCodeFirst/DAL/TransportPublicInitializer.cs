@@ -33,12 +33,12 @@ namespace EngineerCodeFirst.DAL
 
             var drivers = new List<Driver>
             {
-                new Driver{DriverName="Clint", DriverSurname="Eastwood", Status = "ON", Buses = new List<Bus>{buses.Single(b => b.BusID == 3)}},
-                new Driver{DriverName="Jay", DriverSurname="Z", Status = "ON", Buses = new List<Bus>{buses.Single(b => b.BusID == 4)}},
-                new Driver{DriverName="Sherlock", DriverSurname="Holmes", Status = "ON", Buses = new List<Bus>{buses.Single(b => b.BusID == 7)}},
-                new Driver{DriverName="Roman", DriverSurname="Polanski", Status = "OFF"},
-                new Driver{DriverName="Michael", DriverSurname="Raven", Status = "OFF"},
-                new Driver{DriverName="Elton", DriverSurname="John", Status = "ON", Buses = new List<Bus>{buses.Single(b => b.BusID == 6)}},
+                new Driver{DriverName="Clint", DriverSurname="Eastwood", DriverLogin = "clinte", DriverPass = "clinte", Status = "ON", Buses = new List<Bus>{buses.Single(b => b.BusID == 3)}},
+                new Driver{DriverName="Stephen", DriverSurname="King", DriverLogin = "stephenk", DriverPass = "stephenk", Status = "ON", Buses = new List<Bus>{buses.Single(b => b.BusID == 4)}},
+                new Driver{DriverName="Sherlock", DriverSurname="Holmes", DriverLogin = "scherlockh", DriverPass = "scherlockh", Status = "ON", Buses = new List<Bus>{buses.Single(b => b.BusID == 7)}},
+                new Driver{DriverName="Roman", DriverSurname="Polanski", DriverLogin = "romanp", DriverPass = "romanp",  Status = "OFF"},
+                new Driver{DriverName="Harry", DriverSurname="Potter", DriverLogin = "harryp", DriverPass = "harryp", Status = "OFF"},
+                new Driver{DriverName="Elton", DriverSurname="John", DriverLogin = "eltonj", DriverPass = "eltonj", Status = "ON", Buses = new List<Bus>{buses.Single(b => b.BusID == 6)}},
             };
 
             drivers.ForEach(s => context.Drivers.Add(s));
@@ -46,14 +46,14 @@ namespace EngineerCodeFirst.DAL
 
             var lines = new List<Line>
             {
-                new Line{LineID = 1, LineNumber=47, Direction="Szczyglowice"},
-                new Line{LineID = 2, LineNumber=47, Direction="Zabrze"},
-                new Line{LineID = 3, LineNumber=58, Direction="Knurow", Buses = new List<Bus>{buses.Single(b => b.BusID == 3)}},
-                new Line{LineID = 4, LineNumber=58, Direction="Gliwice"},
-                new Line{LineID = 5, LineNumber=32, Direction="Zabrze"},
-                new Line{LineID = 6, LineNumber=32, Direction="Labedy", Buses = new List<Bus>{buses.Single(b => b.BusID == 4)}},
-                new Line{LineID = 7, LineNumber=197, Direction="Sosnica", Buses = new List<Bus>{buses.Single(b => b.BusID == 6)}},
-                new Line{LineID = 8, LineNumber=197, Direction="Labedy", Buses = new List<Bus>{buses.Single(b => b.BusID == 7)}},
+                new Line{LineID = 1, LineNumber=47, Direction="Szczyglowice", Status = "OFF", ScheduleType = ScheduleType.HOLIDAY},
+                new Line{LineID = 2, LineNumber=47, Direction="Zabrze", Status = "OFF", ScheduleType = ScheduleType.WEEKDAY},
+                new Line{LineID = 3, LineNumber=58, Direction="Knurow", Buses = new List<Bus>{buses.Single(b => b.BusID == 3)}, Status = "ON", ScheduleType = ScheduleType.REGULAR},
+                new Line{LineID = 4, LineNumber=58, Direction="Gliwice", Status = "OFF", ScheduleType = ScheduleType.HOLIDAY},
+                new Line{LineID = 5, LineNumber=32, Direction="Zabrze", Status = "OFF", ScheduleType = ScheduleType.HOLIDAY},
+                new Line{LineID = 6, LineNumber=32, Direction="Labedy", Buses = new List<Bus>{buses.Single(b => b.BusID == 4)}, Status = "ON", ScheduleType = ScheduleType.REGULAR},
+                new Line{LineID = 7, LineNumber=197, Direction="Sosnica", Buses = new List<Bus>{buses.Single(b => b.BusID == 6)}, Status = "ON", ScheduleType = ScheduleType.REGULAR},
+                new Line{LineID = 8, LineNumber=197, Direction="Labedy", Buses = new List<Bus>{buses.Single(b => b.BusID == 7)}, Status = "ON", ScheduleType = ScheduleType.REGULAR},
             };
             lines.ForEach(s => context.Lines.Add(s));
             context.SaveChanges();
@@ -209,8 +209,8 @@ namespace EngineerCodeFirst.DAL
 
             var driverNotif = new List<MsgDriver>
             {
-                new MsgDriver{DriverID = 2, BusID = 4, Text = "Traffic jam on Mikolowska Street", TimeStamp = System.DateTime.Now},
-                new MsgDriver{DriverID = 3, BusID = 7, Text = "Car accident on Dworcowa Street", TimeStamp = System.DateTime.Now},
+                new MsgDriver{DriverID = 2, BusID = 4, Text = "Traffic jam on Mikolowska Street", TimeStamp = System.DateTime.Now, Status = Status.Unread},
+                new MsgDriver{DriverID = 3, BusID = 7, Text = "Car accident on Dworcowa Street", TimeStamp = System.DateTime.Now, Status = Status.Unread},
             };
             driverNotif.ForEach(s => context.MsgDriver.Add(s));
             context.SaveChanges();

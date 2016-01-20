@@ -12,7 +12,8 @@ namespace EngineerCodeFirst.Models
         public Driver()
         {
             this.Buses = new HashSet<Bus>();
-            this.Lines = new HashSet<Line>();
+            this.Histories = new HashSet<History>();
+            //this.Lines = new HashSet<Line>();
         }
         [Display(Name = "ID")]
         public int DriverID { get; set; }
@@ -36,7 +37,8 @@ namespace EngineerCodeFirst.Models
             }
         }
         public virtual ICollection<Bus> Buses { get; set; }
-        public virtual ICollection<Line> Lines { get; set; }
+        public virtual ICollection<History> Histories { get; set; }
+        //public virtual ICollection<Line> Lines { get; set; }
     }
 
     public class DriverForApp
