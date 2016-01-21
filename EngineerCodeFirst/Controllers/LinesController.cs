@@ -164,7 +164,25 @@ namespace EngineerCodeFirst.Controllers
             }
         }
 
+        [HttpGet]
+        public ActionResult GetDepartureTime()
+        {
+            try
+            {
+                Request.InputStream.Position = 0;
+                var ID = new System.IO.StreamReader(Request.InputStream).ReadToEnd();
 
+                Line lineToProcess = db.Lines.Find(ID);
+                String departureTime = lineToProcess.Schedules.ElementAt(0).DepartureTime;
+
+                return Json(departureTime, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json("FAIL", JsonRequestBehavior.AllowGet);
+            }
+
+        }
 
     }
 }
