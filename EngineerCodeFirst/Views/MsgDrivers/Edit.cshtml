@@ -1,12 +1,10 @@
 ﻿@model EngineerCodeFirst.Models.MsgDriver
 
-
 @{
     ViewBag.Title = "Edit";
 }
 
 <h2>Edit</h2>
-
 
 @using (Html.BeginForm())
 {
@@ -19,17 +17,17 @@
         @Html.HiddenFor(model => model.MsgDriverID)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.DriverID, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.DriverID, "DriverID", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.DriverID, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DropDownList("DriverID", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.DriverID, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.BusID, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.BusID, "BusID", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.BusID, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DropDownList("BusID", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.BusID, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -46,7 +44,7 @@
             @Html.LabelFor(model => model.TimeStamp, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.TimeStamp, new { htmlAttributes = new { @class = "form-control" } })
-                @*@Html.ValidationMessageFor(model => model.TimeStamp, "", new { @class = "text-danger" })*@
+                @Html.ValidationMessageFor(model => model.TimeStamp, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -69,7 +67,3 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}

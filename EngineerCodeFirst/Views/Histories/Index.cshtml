@@ -12,7 +12,10 @@
 <table class="table">
     <tr>
         <th>
-            Driver
+            @Html.DisplayNameFor(model => model.Driver.DriverInfo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Bus.RegNum)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.StartTime)
@@ -26,7 +29,10 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Driver.DriverName)
+            @Html.DisplayFor(modelItem => item.Driver.DriverInfo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Bus.RegNum)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.StartTime)

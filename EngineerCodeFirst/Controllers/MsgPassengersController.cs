@@ -18,7 +18,8 @@ namespace EngineerCodeFirst.Controllers
         // GET: MsgPassengers
         public ActionResult Index()
         {
-            return View(db.MsgPassengers.ToList());
+            var msgPassengers = db.MsgPassengers.Include(m => m.Bus);
+            return View(msgPassengers.ToList());
         }
 
         // GET: MsgPassengers/Details/5
@@ -39,6 +40,7 @@ namespace EngineerCodeFirst.Controllers
         // GET: MsgPassengers/Create
         public ActionResult Create()
         {
+            ViewBag.BusID = new SelectList(db.Buses, "BusID", "RegNum");
             return View();
         }
 
@@ -56,6 +58,7 @@ namespace EngineerCodeFirst.Controllers
                 return RedirectToAction("Index");
             }
 
+            ViewBag.BusID = new SelectList(db.Buses, "BusID", "RegNum", msgPassenger.BusID);
             return View(msgPassenger);
         }
 
@@ -71,6 +74,7 @@ namespace EngineerCodeFirst.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.BusID = new SelectList(db.Buses, "BusID", "RegNum", msgPassenger.BusID);
             return View(msgPassenger);
         }
 
@@ -87,6 +91,7 @@ namespace EngineerCodeFirst.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.BusID = new SelectList(db.Buses, "BusID", "RegNum", msgPassenger.BusID);
             return View(msgPassenger);
         }
 

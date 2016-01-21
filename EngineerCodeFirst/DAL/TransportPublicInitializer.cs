@@ -212,7 +212,7 @@ namespace EngineerCodeFirst.DAL
                 new MsgDriver{DriverID = 2, BusID = 4, Text = "Traffic jam on Mikolowska Street", TimeStamp = System.DateTime.Now, Status = Status.Unread},
                 new MsgDriver{DriverID = 3, BusID = 7, Text = "Car accident on Dworcowa Street", TimeStamp = System.DateTime.Now, Status = Status.Unread},
             };
-            driverNotif.ForEach(s => context.MsgDriver.Add(s));
+            driverNotif.ForEach(s => context.MsgDrivers.Add(s));
             context.SaveChanges();
         }
     }

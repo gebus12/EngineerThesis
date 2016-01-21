@@ -43,9 +43,9 @@ namespace EngineerCodeFirst.DAL
 
         public virtual DbSet<History> Histories { get; set; }
 
-        public System.Data.Entity.DbSet<EngineerCodeFirst.Models.MsgDriver> MsgDriver { get; set; }
+        public DbSet<MsgDriver> MsgDrivers { get; set; }
 
-        public System.Data.Entity.DbSet<EngineerCodeFirst.Models.MsgPassenger> MsgPassengers { get; set; }
+        public DbSet<MsgPassenger> MsgPassengers { get; set; }
 
 
     }

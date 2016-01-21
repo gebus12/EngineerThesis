@@ -11,11 +11,19 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            Driver
+            @Html.DisplayNameFor(model => model.Driver.DriverName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Driver.DriverName)
+            @Html.DisplayFor(model => model.Driver.DriverInfo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Bus.RegNum)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Bus.RegNum)
         </dd>
 
         <dt>

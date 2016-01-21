@@ -12,10 +12,10 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.MsgPassengerID)
+            ID
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.BusID)
+            Bus
         </th>
         <th>
             @Html.DisplayNameFor(model => model.ValidityPeriod)
@@ -38,7 +38,7 @@
             @Html.DisplayFor(modelItem => item.MsgPassengerID)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.BusID)
+            @Html.DisplayFor(modelItem => item.Bus.RegNum)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.ValidityPeriod)

@@ -13,6 +13,7 @@ namespace EngineerCodeFirst.Models
         public int BusID { get; set; }
         public int ValidityPeriod { get; set; }
         public string Text { get; set; }
+        public virtual Bus Bus { get; set; }
 
         /*
          * niby

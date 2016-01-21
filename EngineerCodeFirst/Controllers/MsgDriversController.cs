@@ -18,7 +18,8 @@ namespace EngineerCodeFirst.Controllers
         // GET: MsgDrivers
         public ActionResult Index()
         {
-            return View(db.MsgDriver.ToList());
+            var msgDrivers = db.MsgDrivers.Include(m => m.Bus).Include(m => m.Driver);
+            return View(msgDrivers.ToList());
         }
 
         // GET: MsgDrivers/Details/5
@@ -28,7 +29,7 @@ namespace EngineerCodeFirst.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            MsgDriver msgDriver = db.MsgDriver.Find(id);
+            MsgDriver msgDriver = db.MsgDrivers.Find(id);
             if (msgDriver == null)
             {
                 return HttpNotFound();
@@ -39,6 +40,8 @@ namespace EngineerCodeFirst.Controllers
         // GET: MsgDrivers/Create
         public ActionResult Create()
         {
+            ViewBag.BusID = new SelectList(db.Buses, "BusID", "RegNum");
+            ViewBag.DriverID = new SelectList(db.Drivers, "DriverID", "DriverInfo");
             return View();
         }
 
@@ -51,11 +54,13 @@ namespace EngineerCodeFirst.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.MsgDriver.Add(msgDriver);
+                db.MsgDrivers.Add(msgDriver);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
+            ViewBag.BusID = new SelectList(db.Buses, "BusID", "RegNum", msgDriver.BusID);
+            ViewBag.DriverID = new SelectList(db.Drivers, "DriverID", "DriverInfo", msgDriver.DriverID);
             return View(msgDriver);
         }
 
@@ -66,7 +71,42 @@ namespace EngineerCodeFirst.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            MsgDriver msgDriver = db.MsgDriver.Find(id);
+            MsgDriver msgDriver = db.MsgDrivers.Find(id);
+            if (msgDriver == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.BusID = new SelectList(db.Buses, "BusID", "RegNum", msgDriver.BusID);
+            ViewBag.DriverID = new SelectList(db.Drivers, "DriverID", "DriverInfo", msgDriver.DriverID);
+            return View(msgDriver);
+        }
+
+        // POST: MsgDrivers/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "MsgDriverID,DriverID,BusID,Text,TimeStamp,Status")] MsgDriver msgDriver)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(msgDriver).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            ViewBag.BusID = new SelectList(db.Buses, "BusID", "RegNum", msgDriver.BusID);
+            ViewBag.DriverID = new SelectList(db.Drivers, "DriverID", "DriverInfo", msgDriver.DriverID);
+            return View(msgDriver);
+        }
+
+        // GET: MsgDrivers/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            MsgDriver msgDriver = db.MsgDrivers.Find(id);
             if (msgDriver == null)
             {
                 return HttpNotFound();
@@ -74,8 +114,25 @@ namespace EngineerCodeFirst.Controllers
             return View(msgDriver);
         }
 
+        // POST: MsgDrivers/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            MsgDriver msgDriver = db.MsgDrivers.Find(id);
+            db.MsgDrivers.Remove(msgDriver);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
 
-
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
 
         // GET: MsgDrivers/MarkAsRead/5
         public ActionResult MarkAsRead(int? id)
@@ -84,7 +141,7 @@ namespace EngineerCodeFirst.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            MsgDriver msgDriver = db.MsgDriver.Find(id);
+            MsgDriver msgDriver = db.MsgDrivers.Find(id);
             if (msgDriver == null)
             {
                 return HttpNotFound();
@@ -105,58 +162,6 @@ namespace EngineerCodeFirst.Controllers
                 return RedirectToAction("Index");
             }
             return View(msgDriver);
-        }
-
-
-        // POST: MsgDrivers/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "MsgDriverID,DriverID,BusID,Text,TimeStamp,Status")] MsgDriver msgDriver)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(msgDriver).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(msgDriver);
-        }
-
-        // GET: MsgDrivers/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            MsgDriver msgDriver = db.MsgDriver.Find(id);
-            if (msgDriver == null)
-            {
-                return HttpNotFound();
-            }
-            return View(msgDriver);
-        }
-
-        // POST: MsgDrivers/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            MsgDriver msgDriver = db.MsgDriver.Find(id);
-            db.MsgDriver.Remove(msgDriver);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }

@@ -23,6 +23,9 @@ namespace EngineerCodeFirst.Models
         {
             this.Lines = new HashSet<Line>();
             this.Drivers = new HashSet<Driver>();
+            this.Histories = new HashSet<History>();
+            this.MsgDrivers = new HashSet<MsgDriver>();
+            this.MsgPassengers = new HashSet<MsgPassenger>();
         }
         [Display(Name = "ID")]
         public int BusID { get; set; }
@@ -43,6 +46,9 @@ namespace EngineerCodeFirst.Models
         public Accessible? Accessible { get; set; }
         public virtual ICollection<Line> Lines { get; set; }
         public virtual ICollection<Driver> Drivers { get; set; }
+        public virtual ICollection<History> Histories { get; set; }
+        public virtual ICollection<MsgPassenger> MsgPassengers { get; set; }
+        public virtual ICollection<MsgDriver> MsgDrivers { get; set; }
     }
 
     public class BusForApps {

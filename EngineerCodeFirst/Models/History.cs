@@ -11,6 +11,8 @@ namespace EngineerCodeFirst.Models
         public int StartTime { get; set; }
         public int EndTime { get; set; }
         public int DriverID { get; set; }
+        public int BusID { get; set; }
         public virtual Driver Driver { get; set; }
+        public virtual Bus Bus { get; set; }
     }
 }

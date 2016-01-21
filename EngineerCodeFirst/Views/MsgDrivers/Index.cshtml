@@ -12,13 +12,13 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.MsgDriverID)
+            ID
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DriverID)
+            Bus
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.BusID)
+            @Html.DisplayNameFor(model => model.Driver.DriverInfo)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Text)
@@ -38,10 +38,10 @@
             @Html.DisplayFor(modelItem => item.MsgDriverID)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.DriverID)
+            @Html.DisplayFor(modelItem => item.Bus.RegNum)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.BusID)
+            @Html.DisplayFor(modelItem => item.Driver.DriverInfo)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Text)

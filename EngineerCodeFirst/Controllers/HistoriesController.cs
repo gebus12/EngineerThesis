@@ -18,7 +18,7 @@ namespace EngineerCodeFirst.Controllers
         // GET: Histories
         public ActionResult Index()
         {
-            var histories = db.Histories.Include(h => h.Driver);
+            var histories = db.Histories.Include(h => h.Bus).Include(h => h.Driver);
             return View(histories.ToList());
         }
 
@@ -40,6 +40,7 @@ namespace EngineerCodeFirst.Controllers
         // GET: Histories/Create
         public ActionResult Create()
         {
+            ViewBag.BusID = new SelectList(db.Buses, "BusID", "RegNum");
             ViewBag.DriverID = new SelectList(db.Drivers, "DriverID", "DriverInfo");
             return View();
         }
@@ -58,7 +59,8 @@ namespace EngineerCodeFirst.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.DriverID = new SelectList(db.Drivers, "DriverID", "DriverName", history.DriverID);
+            ViewBag.BusID = new SelectList(db.Buses, "BusID", "RegNum", history.BusID);
+            ViewBag.DriverID = new SelectList(db.Drivers, "DriverID", "DriverInfo", history.DriverID);
             return View(history);
         }
 
@@ -74,6 +76,7 @@ namespace EngineerCodeFirst.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.BusID = new SelectList(db.Buses, "BusID", "RegNum", history.BusID);
             ViewBag.DriverID = new SelectList(db.Drivers, "DriverID", "DriverName", history.DriverID);
             return View(history);
         }
@@ -91,6 +94,7 @@ namespace EngineerCodeFirst.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.BusID = new SelectList(db.Buses, "BusID", "RegNum", history.BusID);
             ViewBag.DriverID = new SelectList(db.Drivers, "DriverID", "DriverName", history.DriverID);
             return View(history);
         }

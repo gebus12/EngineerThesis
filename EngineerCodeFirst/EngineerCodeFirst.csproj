@@ -236,22 +236,21 @@
     <Content Include="Views\Schedules\Details.cshtml" />
     <Content Include="Views\Schedules\Edit.cshtml" />
     <Content Include="Views\Schedules\Index.cshtml" />
-    <Content Include="Views\MsgDrivers\Create.cshtml" />
-    <Content Include="Views\MsgDrivers\Delete.cshtml" />
-    <Content Include="Views\MsgDrivers\Details.cshtml" />
-    <Content Include="Views\MsgDrivers\Edit.cshtml" />
-    <Content Include="Views\MsgDrivers\Index.cshtml" />
-    <Content Include="Views\MsgPassengers\Create.cshtml" />
-    <Content Include="Views\MsgPassengers\Delete.cshtml" />
-    <Content Include="Views\MsgPassengers\Details.cshtml" />
-    <Content Include="Views\MsgPassengers\Edit.cshtml" />
-    <Content Include="Views\MsgPassengers\Index.cshtml" />
     <Content Include="Views\Histories\Create.cshtml" />
     <Content Include="Views\Histories\Delete.cshtml" />
     <Content Include="Views\Histories\Details.cshtml" />
     <Content Include="Views\Histories\Edit.cshtml" />
     <Content Include="Views\Histories\Index.cshtml" />
-    <Content Include="Views\MsgDrivers\MarkAsRead.cshtml" />
+    <Content Include="Views\MsgPassengers\Create.cshtml" />
+    <Content Include="Views\MsgPassengers\Delete.cshtml" />
+    <Content Include="Views\MsgPassengers\Details.cshtml" />
+    <Content Include="Views\MsgPassengers\Edit.cshtml" />
+    <Content Include="Views\MsgPassengers\Index.cshtml" />
+    <Content Include="Views\MsgDrivers\Create.cshtml" />
+    <Content Include="Views\MsgDrivers\Delete.cshtml" />
+    <Content Include="Views\MsgDrivers\Details.cshtml" />
+    <Content Include="Views\MsgDrivers\Edit.cshtml" />
+    <Content Include="Views\MsgDrivers\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

@@ -17,6 +17,8 @@ namespace EngineerCodeFirst.Models
         public int DriverID { get; set; } 
         public int BusID { get; set; }
         public string Text { get; set; }
+        public virtual Driver Driver { get; set; }
+        public virtual Bus Bus { get; set; }
 
         /*
          * POBIERANIE AKTUALNEJ DATY przy tworzeniu obiektu:
@@ -24,8 +26,6 @@ namespace EngineerCodeFirst.Models
          * ale u mnie nie dziala tak do konca - nie pokazuje tej daty przy create w View
          * moze Tobie sie uda/przyda :P
          */
-
-
         [DataType(DataType.Date)]
         public DateTime TimeStamp { get; set; }
         public Status? Status { get; set; }
