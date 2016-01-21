@@ -10,6 +10,11 @@ namespace EngineerCodeFirst.Models
         {
             Read, Unread
         }
+
+    public enum Receiver
+    {
+        Driver, Provider
+    }
     public class MsgDriver
     {
         [Display(Name = "ID")]
@@ -29,6 +34,7 @@ namespace EngineerCodeFirst.Models
         [DataType(DataType.Date)]
         public DateTime TimeStamp { get; set; }
         public Status? Status { get; set; }
+        public Receiver? Receiver { get; set; }
         
     }
 }

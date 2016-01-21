@@ -50,7 +50,7 @@ namespace EngineerCodeFirst.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MsgDriverID,DriverID,BusID,Text,TimeStamp,Status")] MsgDriver msgDriver)
+        public ActionResult Create([Bind(Include = "MsgDriverID,DriverID,BusID,Text,TimeStamp,Status,Receiver")] MsgDriver msgDriver)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace EngineerCodeFirst.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "MsgDriverID,DriverID,BusID,Text,TimeStamp,Status")] MsgDriver msgDriver)
+        public ActionResult Edit([Bind(Include = "MsgDriverID,DriverID,BusID,Text,TimeStamp,Status,Receiver")] MsgDriver msgDriver)
         {
             if (ModelState.IsValid)
             {
@@ -153,7 +153,7 @@ namespace EngineerCodeFirst.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult MarkAsRead([Bind(Include = "MsgDriverID,DriverID,BusID,Text,TimeStamp,Status")] MsgDriver msgDriver)
+        public ActionResult MarkAsRead([Bind(Include = "MsgDriverID,DriverID,BusID,Text,TimeStamp,Status,Receiver")] MsgDriver msgDriver)
         {
             if (ModelState.IsValid)
             {

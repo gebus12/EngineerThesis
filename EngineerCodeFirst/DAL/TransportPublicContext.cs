@@ -40,13 +40,8 @@ namespace EngineerCodeFirst.DAL
         public virtual DbSet<Line> Lines { get; set; }
         public virtual DbSet<Schedule> Schedules { get; set; }
         public virtual DbSet<Stop> Stops { get; set; }
-
         public virtual DbSet<History> Histories { get; set; }
-
         public DbSet<MsgDriver> MsgDrivers { get; set; }
-
         public DbSet<MsgPassenger> MsgPassengers { get; set; }
-
-
     }
 }

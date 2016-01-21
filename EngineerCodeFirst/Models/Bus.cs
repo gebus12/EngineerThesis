@@ -29,6 +29,7 @@ namespace EngineerCodeFirst.Models
         }
         [Display(Name = "ID")]
         public int BusID { get; set; }
+        [Required(ErrorMessage = "Registration ID required")]
         [Display(Name = "Registration ID")]
         public string RegNum { get; set; }
         public string Status { get; set; }

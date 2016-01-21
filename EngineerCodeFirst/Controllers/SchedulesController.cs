@@ -106,6 +106,34 @@ namespace EngineerCodeFirst.Controllers
             return View(schedule);
         }
 
+        // GET: Schedules/Create
+        public ActionResult CreateScheduleForLine(int? id)
+        {
+            ViewBag.LineID = new SelectList(db.Lines, "LineID", "LineInfo", id);
+            ViewBag.StopID = new SelectList(db.Stops, "StopID", "StopInfo");
+            return View();
+        }
+
+       
+
+        // POST: Schedules/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateScheduleForLine([Bind(Include = "ScheduleID,BusOrder,DepartureTime,LineID,StopID")] Schedule schedule)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Schedules.Add(schedule);
+                db.SaveChanges();
+                return RedirectToAction("Index", "Lines");
+            }
+
+            ViewBag.StopID = new SelectList(db.Stops, "StopID", "City", schedule.StopID);
+            return View(schedule);
+        }
+
         // GET: Schedules/Edit/5
         public ActionResult Edit(int? id)
         {
