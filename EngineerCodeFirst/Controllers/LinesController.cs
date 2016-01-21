@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.Mvc;
 using EngineerCodeFirst.DAL;
 using EngineerCodeFirst.Models;
+using System.Web.Script.Serialization;
+
 
 namespace EngineerCodeFirst.Controllers
 {
@@ -164,18 +166,35 @@ namespace EngineerCodeFirst.Controllers
             }
         }
 
-        [HttpGet]
-        public ActionResult GetDepartureTime()
+        [HttpPost]
+        public ActionResult GetDepartureTimes()
         {
+            List<int> IDList = new List<int>();
+            Dictionary<String, String> returnSet = new Dictionary<String,String>();
             try
             {
                 Request.InputStream.Position = 0;
-                var ID = new System.IO.StreamReader(Request.InputStream).ReadToEnd();
+                var jsonString = new System.IO.StreamReader(Request.InputStream).ReadToEnd();
+                
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                IDList = js.Deserialize< List<int> >(jsonString);
 
-                Line lineToProcess = db.Lines.Find(ID);
-                String departureTime = lineToProcess.Schedules.ElementAt(0).DepartureTime;
-
-                return Json(departureTime, JsonRequestBehavior.AllowGet);
+                foreach (int x in IDList)
+                {
+                    try
+                    {
+                        Line lineToProcess = db.Lines.Find(x); // get the line identified by id from list
+                        String departureTime = lineToProcess.Schedules.ElementAt(0).DepartureTime; // look for the first departure time
+                        departureTime += "//" + lineToProcess.ScheduleType.ToString(); //save also type of the schedule
+                        returnSet.Add(x.ToString(), departureTime); //id has to be converted to String as int dictionary cant be serialized
+                    }
+                    catch (Exception ex)
+                    {
+                        // error while obtaining schedule for line
+                    }
+                }
+                if (returnSet.Count() != 0)return Json(returnSet, JsonRequestBehavior.AllowGet);
+                else return Json("Empty set", JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
