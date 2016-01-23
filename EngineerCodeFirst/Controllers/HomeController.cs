@@ -48,16 +48,88 @@ namespace EngineerCodeFirst.Controllers
 
                 receivedData = js.Deserialize<Dictionary<String, String>>(jsonString);
 
-                //set data to the objects in db
+                //get objects from db which correspond to the request from application
                 EngineerCodeFirst.Models.Bus bus = db.Buses.Find(int.Parse(receivedData["BusID"]) );
-                //omomomom musze tutaj umieć edytować!!
+                EngineerCodeFirst.Models.Line line = db.Lines.Find(int.Parse(receivedData["LineID"]));
+                EngineerCodeFirst.Models.Driver driver = db.Drivers.Find(int.Parse(receivedData["DriverID"]));
+
+                //set status to ON for driver, bus and line
+                bus.Status = "ON";
+                driver.Status = "ON";
+                line.Status = "ON";
+
+                //assign bus to line, driver to bus ect.
+                line.Buses.Clear();
+                line.Buses.Add(bus);
+
+                bus.Drivers.Clear();
+                bus.Drivers.Add(driver);
+
+                bus.Lines.Clear();
+                bus.Lines.Add(line);
+
+                driver.Buses.Clear();
+                driver.Buses.Add(bus);
+
+                //finalize
+                db.SaveChanges();
+
+                String message = "DONE"; // change this value to some global constant
+                return Json(message, JsonRequestBehavior.AllowGet);
                 }
 
             catch(Exception ex){
-
+                // finding elements in db failed or received data is invalid
+                String message = "FAIL"; // change this value to some global constant
+                return Json(message, JsonRequestBehavior.AllowGet);
                 }
-            return null;
+        }
 
+        [HttpPost]
+        public ActionResult DriverLogoutFromApp()
+        {
+            int receivedID;
+            try
+            {
+                Request.InputStream.Position = 0;
+                var jsonString = new System.IO.StreamReader(Request.InputStream).ReadToEnd();
+                JavaScriptSerializer js = new JavaScriptSerializer();
+
+                receivedID = js.Deserialize<int>(jsonString);
+
+                //get objects from db which correspond to the request from application
+
+                EngineerCodeFirst.Models.Driver driver = db.Drivers.Find(receivedID);
+                try
+                {
+                    EngineerCodeFirst.Models.Bus bus = driver.Buses.First();
+                    EngineerCodeFirst.Models.Line line = bus.Lines.First();
+                    bus.Status = "OFF";
+                    line.Status = "OFF";
+
+                    line.Buses.Clear();
+                    bus.Drivers.Clear();
+                    bus.Lines.Clear();
+                }
+                catch (Exception ex)
+                {
+                    // line and/or bus not assigned to driver
+                    // ignore and update status only of driver
+                }
+               driver.Status = "OFF"; 
+               driver.Buses.Clear();
+
+               db.SaveChanges();
+
+               String message = "DONE"; // change this value to some global constant
+               return Json(message, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                // finding elements in db failed or received data is invalid
+                String message = "FAIL"; // change this value to some global constant
+                return Json(message, JsonRequestBehavior.AllowGet);
+            }
         }
 
     }
