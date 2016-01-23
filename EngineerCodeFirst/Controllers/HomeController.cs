@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using EngineerCodeFirst.DAL;
 using EngineerCodeFirst.ViewModel;
 using System.Dynamic;
+using System.Web.Script.Serialization;
 
 namespace EngineerCodeFirst.Controllers
 {
@@ -34,6 +35,29 @@ namespace EngineerCodeFirst.Controllers
             //ViewBag.Message = "Your application description page.";
             
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult StartRideFromApp()
+        {
+            Dictionary<String, String> receivedData = new Dictionary<String, String>();
+            try{
+                Request.InputStream.Position = 0;
+                var jsonString = new System.IO.StreamReader(Request.InputStream).ReadToEnd();
+                JavaScriptSerializer js = new JavaScriptSerializer();
+
+                receivedData = js.Deserialize<Dictionary<String, String>>(jsonString);
+
+                //set data to the objects in db
+                EngineerCodeFirst.Models.Bus bus = db.Buses.Find(int.Parse(receivedData["BusID"]) );
+                //omomomom musze tutaj umieć edytować!!
+                }
+
+            catch(Exception ex){
+
+                }
+            return null;
+
         }
 
     }

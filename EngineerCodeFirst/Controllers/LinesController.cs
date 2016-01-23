@@ -185,7 +185,7 @@ namespace EngineerCodeFirst.Controllers
                     {
                         Line lineToProcess = db.Lines.Find(x); // get the line identified by id from list
                         String departureTime = lineToProcess.Schedules.ElementAt(0).DepartureTime; // look for the first departure time
-                        departureTime += "//" + lineToProcess.ScheduleType.ToString(); //save also type of the schedule
+                        departureTime += "  " + lineToProcess.ScheduleType.ToString(); //save also type of the schedule
                         returnSet.Add(x.ToString(), departureTime); //id has to be converted to String as int dictionary cant be serialized
                     }
                     catch (Exception ex)

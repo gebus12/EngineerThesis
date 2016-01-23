@@ -58,6 +58,7 @@ namespace EngineerCodeFirst.Models
         public int LineID { get; set; }
         public int LineNumber { get; set; }
         public string Direction { get; set; }
+        public string Status { get; set; }
 
     }
 }
