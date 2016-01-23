@@ -422,5 +422,32 @@ namespace EngineerCodeFirst.Controllers
             return Json("OK", JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
+        public ActionResult UploadCoordinates()
+        {
+            try
+            {
+                Bus busToUpdate;
+
+                Request.InputStream.Position = 0;
+                var result = new System.IO.StreamReader(Request.InputStream).ReadToEnd();
+                List<String> requestData;
+                requestData = JsonConvert.DeserializeObject< List<String> >(result);
+
+                busToUpdate = db.Buses.Find(int.Parse(requestData.ElementAt(0)));
+                busToUpdate.Latitude = requestData.ElementAt(1);
+                busToUpdate.Longitude = requestData.ElementAt(2);
+
+                db.SaveChanges();
+
+                return Json("DONE", JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return Json("FAIL", JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

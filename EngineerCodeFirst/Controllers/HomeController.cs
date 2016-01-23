@@ -105,6 +105,8 @@ namespace EngineerCodeFirst.Controllers
                     EngineerCodeFirst.Models.Bus bus = driver.Buses.First();
                     EngineerCodeFirst.Models.Line line = bus.Lines.First();
                     bus.Status = "OFF";
+                    bus.Longitude = null;
+                    bus.Latitude = null;
                     line.Status = "OFF";
 
                     line.Buses.Clear();
