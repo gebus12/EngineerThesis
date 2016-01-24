@@ -106,8 +106,10 @@ namespace EngineerCodeFirst.Controllers
                 History historyEvent = new History();
                 historyEvent.BusID = bus.BusID;
                 historyEvent.DriverID = driver.DriverID;
-                //historyEvent.StartTime = receivedData["HistoryStart"];
-                //historyEvent.StopTime = receivedData["HistoryStop"];
+                historyEvent.StartTime = receivedData["HistoryStart"];
+                historyEvent.EndTime = receivedData["HistoryStop"];
+                db.Histories.Add(historyEvent);
+                db.SaveChanges();
 
                 //set status to OFF for driver, bus and line, clear coordinates
                 bus.Status = "OFF";
