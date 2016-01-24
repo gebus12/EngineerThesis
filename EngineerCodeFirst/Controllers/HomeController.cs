@@ -7,6 +7,7 @@ using EngineerCodeFirst.DAL;
 using EngineerCodeFirst.ViewModel;
 using System.Dynamic;
 using System.Web.Script.Serialization;
+using EngineerCodeFirst.Models;
 
 namespace EngineerCodeFirst.Controllers
 {
@@ -85,6 +86,56 @@ namespace EngineerCodeFirst.Controllers
                 }
         }
 
+        public ActionResult StopRideFromApp()
+        {
+            Dictionary<String, String> receivedData = new Dictionary<String, String>();
+            try
+            {
+                Request.InputStream.Position = 0;
+                var jsonString = new System.IO.StreamReader(Request.InputStream).ReadToEnd();
+                JavaScriptSerializer js = new JavaScriptSerializer();
+
+                receivedData = js.Deserialize<Dictionary<String, String>>(jsonString);
+
+                //get objects from db which correspond to the request from application
+                Bus bus = db.Buses.Find(int.Parse(receivedData["BusID"]));
+                Line line = db.Lines.Find(int.Parse(receivedData["LineID"]));
+                Driver driver = db.Drivers.Find(int.Parse(receivedData["DriverID"]));
+
+
+                History historyEvent = HistoriesController
+                historyEvent.BusID = bus.BusID;
+                historyEvent.DriverID = driver.DriverID;
+                //historyEvent.StartTime = receivedData["HistoryStart"];
+                //historyEvent.StopTime = receivedData["HistoryStop"];
+
+                //set status to OFF for driver, bus and line, clear coordinates
+                bus.Status = "OFF";
+                driver.Status = "OFF";
+                line.Status = "OFF";
+                bus.Latitude = null;
+                bus.Longitude = null;
+
+                //assign bus to line, driver to bus ect.
+                line.Buses.Clear();
+                bus.Drivers.Clear();
+                bus.Lines.Clear();
+                driver.Buses.Clear();
+
+                //finalize
+                db.SaveChanges();
+
+                String message = "DONE"; // change this value to some global constant
+                return Json(message, JsonRequestBehavior.AllowGet);
+            }
+
+            catch (Exception ex)
+            {
+                // finding elements in db failed or received data is invalid
+                String message = "FAIL"; // change this value to some global constant
+                return Json(message, JsonRequestBehavior.AllowGet);
+            }
+        }
         [HttpPost]
         public ActionResult DriverLogoutFromApp()
         {
