@@ -366,20 +366,20 @@ namespace EngineerCodeFirst.Controllers
         //***** Gebala zaczyna czarowac*****
 
         [HttpGet]
-        public HttpRequestMessage GetAllBusesDetails()
+        public ActionResult GetAllVehicles()
         {
-            IEnumerable<Bus> buses = db.Buses.ToList();
-            if (buses != null)
+            List<Bus> buses = db.Buses.ToList();
+            List<BusForApps> busesToSend = new List<BusForApps>();
+            foreach (Bus x in buses) busesToSend.Add(new BusForApps(x)); // copy all buses to new list but keep the format which apps can handle;
+
+            if (busesToSend != null)
             {
-                var response = new System.Net.Http.HttpRequestMessage();
-                response.CreateResponse<IEnumerable<Bus>>(HttpStatusCode.OK, buses);
-                return response;
+                return Json(busesToSend, JsonRequestBehavior.AllowGet);
             }
             else
             {
-                var response = new System.Net.Http.HttpRequestMessage();
-                response.CreateResponse(HttpStatusCode.NotFound);
-                return response;
+                String message = "FAIL";
+                return Json(message, JsonRequestBehavior.AllowGet);
             }
         }
 
