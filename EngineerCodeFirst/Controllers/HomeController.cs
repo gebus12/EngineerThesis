@@ -103,7 +103,7 @@ namespace EngineerCodeFirst.Controllers
                 Driver driver = db.Drivers.Find(int.Parse(receivedData["DriverID"]));
 
 
-                History historyEvent = HistoriesController
+                History historyEvent = new HistoriesController();
                 historyEvent.BusID = bus.BusID;
                 historyEvent.DriverID = driver.DriverID;
                 //historyEvent.StartTime = receivedData["HistoryStart"];
