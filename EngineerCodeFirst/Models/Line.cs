@@ -49,6 +49,7 @@ namespace EngineerCodeFirst.Models
             this.LineID = lineToBeTransfered.LineID;
             this.LineNumber = lineToBeTransfered.LineNumber;
             this.Direction = lineToBeTransfered.Direction;
+            this.Status = lineToBeTransfered.Status;
         }
 
         public LineForApps()
