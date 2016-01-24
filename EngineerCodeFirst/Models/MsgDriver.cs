@@ -31,10 +31,27 @@ namespace EngineerCodeFirst.Models
          * ale u mnie nie dziala tak do konca - nie pokazuje tej daty przy create w View
          * moze Tobie sie uda/przyda :P
          */
-        [DataType(DataType.Date)]
+        //[DataType(DataType.Date)]
         public DateTime TimeStamp { get; set; }
         public Status? Status { get; set; }
         public Receiver? Receiver { get; set; }
         
+    }
+
+    public class MsgDriverForApp
+    {
+        public int MsgDriverID { get; set; }
+        public int DriverID { get; set; }
+        public int BusID { get; set; }
+        public string Text { get; set; }
+        public DateTime TimeStamp { get; set; }
+
+        public MsgDriverForApp(MsgDriver x){
+            this.BusID = x.BusID;
+            this.DriverID = x.DriverID;
+            this.MsgDriverID = x.MsgDriverID;
+            this.Text = x.Text;
+            this.TimeStamp = x.TimeStamp;
+        }
     }
 }

@@ -195,6 +195,70 @@ namespace EngineerCodeFirst.Controllers
                 return Json(message, JsonRequestBehavior.AllowGet);
             }
         }
+        [HttpPost]
+        public ActionResult pushMessageToDriver()
+        {
+            int id;
+            try
+            {
+                Request.InputStream.Position = 0;
+                var jsonString = new System.IO.StreamReader(Request.InputStream).ReadToEnd();
+                JavaScriptSerializer js = new JavaScriptSerializer();
+
+                id = js.Deserialize<int>(jsonString);
+
+                List<MsgDriver> allMessages = db.MsgDrivers.ToList();
+
+                foreach(MsgDriver x in allMessages)
+                {
+                    if (x.DriverID == id && x.Receiver == Receiver.Driver && x.Status == Status.Unread)
+                    {
+                        MsgDriverForApp messageToSend = new MsgDriverForApp(x); //convert data into app-friendly format
+                        return Json(messageToSend, JsonRequestBehavior.AllowGet);
+                        //send only one message per time
+                    }
+                }
+                return null;
+            }
+
+            catch (Exception ex)
+            {
+                String message = "FAIL"; // change this value to some global constant
+                return Json(message, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public ActionResult markMessageAsRead()
+        {
+            int id;
+            try
+            {
+                Request.InputStream.Position = 0;
+                var jsonString = new System.IO.StreamReader(Request.InputStream).ReadToEnd();
+                JavaScriptSerializer js = new JavaScriptSerializer();
+
+                id = js.Deserialize<int>(jsonString);
+
+                List<MsgDriver> allMessages = db.MsgDrivers.ToList();
+
+                foreach (MsgDriver x in allMessages)
+                {
+                    if (x.MsgDriverID == id)
+                    {
+                        x.Status = Status.Read;
+                        db.SaveChanges();
+                        return null;
+                    }
+                }
+                return null;
+            }
+
+            catch (Exception ex)
+            {
+                String message = "FAIL"; // change this value to some global constant
+                return Json(message, JsonRequestBehavior.AllowGet);
+            }
+        }
 
     }
 }
