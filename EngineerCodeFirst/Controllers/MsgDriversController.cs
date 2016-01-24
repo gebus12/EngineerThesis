@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using EngineerCodeFirst.DAL;
 using EngineerCodeFirst.Models;
+using System.Web.Script.Serialization;
 
 namespace EngineerCodeFirst.Controllers
 {
@@ -163,5 +164,37 @@ namespace EngineerCodeFirst.Controllers
             }
             return View(msgDriver);
         }
+
+        [HttpPost]
+        public ActionResult getMessageFromDriver()
+        {
+            MsgDriver receivedMessage = new MsgDriver();
+            try
+            {
+                Request.InputStream.Position = 0;
+                var jsonString = new System.IO.StreamReader(Request.InputStream).ReadToEnd();
+                JavaScriptSerializer js = new JavaScriptSerializer();
+
+                receivedMessage = js.Deserialize<MsgDriver>(jsonString);
+                receivedMessage.Status = Status.Unread;
+                receivedMessage.Receiver = Receiver.Provider;
+                receivedMessage.Bus = db.Buses.Find(receivedMessage.BusID);
+                receivedMessage.Driver = db.Drivers.Find(receivedMessage.DriverID);
+                db.MsgDrivers.Add(receivedMessage);
+
+                db.SaveChanges();
+
+                String message = "DONE"; // change this value to some global constant
+                return Json(message, JsonRequestBehavior.AllowGet);
+            }
+
+            catch (Exception ex)
+            {
+                // Creation failed
+                String message = "FAIL"; // change this value to some global constant
+                return Json(message, JsonRequestBehavior.AllowGet);
+            }
+        }
+
     }
 }
