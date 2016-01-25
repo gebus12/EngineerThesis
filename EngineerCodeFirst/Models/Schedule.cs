@@ -30,6 +30,8 @@ namespace EngineerCodeFirst.Models
         public int BusIdOfLine { get; set; }
         public String StatusOfLine { get; set; }
 
+        public String typeOfSchedule { get; set; }
+
         public ScheduleForApp(Schedule x)
         {
             this.ScheduleID = x.ScheduleID;
@@ -41,6 +43,7 @@ namespace EngineerCodeFirst.Models
             if (x.Line != null)
             {
                 this.StatusOfLine = x.Line.Status;
+                this.typeOfSchedule = x.Line.ScheduleType.ToString();
                 if(x.Line.Buses.Count != 0) this.BusIdOfLine = x.Line.Buses.First().BusID;
             }
         }
