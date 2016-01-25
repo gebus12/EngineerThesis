@@ -209,9 +209,9 @@ namespace EngineerCodeFirst.Controllers
          * */
         public ActionResult getDeparturesForStopAndLineUrl()
         {
-            
             List<String> receivedData = new List<String>(); //first element StopID, second LineNumber
-            Dictionary<String, String> returnSet = new Dictionary<String,String>();
+            List<ScheduleForApp> dataToSend = new List<ScheduleForApp>();
+
             try
             {
                 Request.InputStream.Position = 0;
@@ -223,8 +223,6 @@ namespace EngineerCodeFirst.Controllers
                 int stopid = int.Parse(receivedData.ElementAt(0));
                 int linenr = int.Parse(receivedData.ElementAt(1));
 
-                List<ScheduleForApp> dataToSend = new List<ScheduleForApp>;
-
                 foreach (Schedule schedule in db.Schedules.ToList())
                 {
                     if (schedule.StopID == stopid && schedule.Line.LineNumber == linenr)
@@ -233,7 +231,7 @@ namespace EngineerCodeFirst.Controllers
                     }
                 }
 
-                if (returnSet.Count() != 0)return Json(returnSet, JsonRequestBehavior.AllowGet);
+                if (dataToSend.Count() != 0) return Json(dataToSend, JsonRequestBehavior.AllowGet);
                 else return Json("Empty set", JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
