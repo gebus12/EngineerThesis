@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using EngineerCodeFirst.DAL;
 using EngineerCodeFirst.Models;
 using PagedList;
+using System.Web.Script.Serialization;
 
 namespace EngineerCodeFirst.Controllers
 {
@@ -168,6 +169,27 @@ namespace EngineerCodeFirst.Controllers
             }
             base.Dispose(disposing);
         }
+
+        [HttpGet]
+        public ActionResult GetAllStops()
+        {
+            List<StopForApp> listToReturn = new List<StopForApp>();
+            try
+            {
+                foreach (Stop stop in db.Stops.ToList())
+                {
+                    //create new list with all sops in app-friendly format
+                    listToReturn.Add(new StopForApp(stop));
+                }
+                if (listToReturn.Count() != 0) return Json(listToReturn, JsonRequestBehavior.AllowGet);
+                else return Json("Empty set", JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json("FAIL", JsonRequestBehavior.AllowGet);
+            }
+        }
+
 
     }
 }

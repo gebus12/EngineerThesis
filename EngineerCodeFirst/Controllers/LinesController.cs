@@ -203,5 +203,45 @@ namespace EngineerCodeFirst.Controllers
 
         }
 
+        [HttpPost]
+        /*Returns all departures for given stopID and LineNumber
+         * 
+         * */
+        public ActionResult getDeparturesForStopAndLineUrl()
+        {
+            
+            List<String> receivedData = new List<String>(); //first element StopID, second LineNumber
+            Dictionary<String, String> returnSet = new Dictionary<String,String>();
+            try
+            {
+                Request.InputStream.Position = 0;
+                var jsonString = new System.IO.StreamReader(Request.InputStream).ReadToEnd();
+                
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                receivedData = js.Deserialize<List<String>>(jsonString);
+
+                int stopid = int.Parse(receivedData.ElementAt(0));
+                int linenr = int.Parse(receivedData.ElementAt(1));
+
+                List<ScheduleForApp> dataToSend = new List<ScheduleForApp>;
+
+                foreach (Schedule schedule in db.Schedules.ToList())
+                {
+                    if (schedule.StopID == stopid && schedule.Line.LineNumber == linenr)
+                    {
+                        dataToSend.Add( new ScheduleForApp(schedule) ); //convert schedule object for application and add to list
+                    }
+                }
+
+                if (returnSet.Count() != 0)return Json(returnSet, JsonRequestBehavior.AllowGet);
+                else return Json("Empty set", JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json("FAIL", JsonRequestBehavior.AllowGet);
+            }
+
+        }
+        
     }
 }

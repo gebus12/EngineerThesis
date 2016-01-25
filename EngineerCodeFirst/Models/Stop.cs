@@ -40,4 +40,23 @@ namespace EngineerCodeFirst.Models
         public virtual ICollection<Schedule> Schedules { get; set; }
 
     }
+
+    public class StopForApp
+    {
+        public int StopID { get; set; }
+        public string City { get; set; }
+        public string StopName { get; set; }
+        public string Latitude { get; set; }
+        public string Longitude { get; set; }
+
+        public StopForApp(Stop x)
+        {
+            this.StopID = x.StopID;
+            this.StopName = x.StopName;
+            this.Longitude = x.Longitude;
+            this.Latitude = x.Latitude;
+            this.City = x.City;
+        }
+
+    }
 }
