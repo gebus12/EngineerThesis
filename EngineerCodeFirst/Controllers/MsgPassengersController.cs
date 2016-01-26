@@ -163,5 +163,29 @@ namespace EngineerCodeFirst.Controllers
                 return Json(message, JsonRequestBehavior.AllowGet);
             }
         }
+
+        [HttpGet]
+        public ActionResult getAllMessages()
+        {
+            List<MsgPassenger> allMessages = db.MsgPassengers.ToList();
+            List<MsgPassengerForApp> allMessagesToSend = new List<MsgPassengerForApp>();
+            try
+            {
+                foreach (MsgPassenger x in allMessages)
+                {
+                    allMessagesToSend.Add(new MsgPassengerForApp(x));
+                }
+
+                return Json(allMessagesToSend, JsonRequestBehavior.AllowGet);
+            }
+
+            catch (Exception ex)
+            {
+                // Creation failed
+                String message = "FAIL"; // change this value to some global constant
+                return Json(message, JsonRequestBehavior.AllowGet);
+            }
+
+        }
     }
 }
