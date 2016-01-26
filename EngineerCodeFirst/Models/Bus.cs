@@ -61,6 +61,7 @@ namespace EngineerCodeFirst.Models
             this.Status = busToBeTransfered.Status;
             this.Latitude = busToBeTransfered.Latitude;
             this.Longitude = busToBeTransfered.Longitude;
+            this.Accessible = busToBeTransfered.Status.ToString();
             //obsluzyc driversow i linie
         }
 
@@ -73,7 +74,7 @@ namespace EngineerCodeFirst.Models
         public string Status { get; set; }
         public string Latitude { get; set; }
         public string Longitude { get; set; }
-    
+        public string Accessible { get; set; }
     }
 
 }

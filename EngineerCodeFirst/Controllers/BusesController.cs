@@ -363,7 +363,7 @@ namespace EngineerCodeFirst.Controllers
         }
         //************************************************//
 
-        //***** Gebala zaczyna czarowac*****
+     
 
         [HttpGet]
         public ActionResult GetAllVehicles()
@@ -384,32 +384,26 @@ namespace EngineerCodeFirst.Controllers
         }
 
 
-        [HttpGet]
-        public ActionResult GetBusDetails(int id)
+        [HttpPost]
+        public ActionResult GetBusDetails()
         {
-            BusForApps busToSend;
-
             try
             {
-                Bus busik = db.Buses.Find(id);
-                busToSend = new BusForApps(busik);
-                if (busToSend != null)
-                {
-                    return Json(busToSend, JsonRequestBehavior.AllowGet);
-                }
-                else
-                {
-                    String message = "Empty result"; // change this value to some global constant
-                    return Json(message, JsonRequestBehavior.AllowGet);
-                }
-            }
-            catch(Exception ex)
-            {
-                String message = "Error occurred";
-                return Json(message, JsonRequestBehavior.AllowGet);
-                // change this value to some global constant (for easier future maintenance)
-            }
+                Request.InputStream.Position = 0;
+                var result = new System.IO.StreamReader(Request.InputStream).ReadToEnd();
 
+
+                int busID = JsonConvert.DeserializeObject<int>(result);
+                Bus correspondingBus = db.Buses.Find(busID);
+                BusForApps busToSend = new BusForApps(correspondingBus);
+
+                return Json(busToSend, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return Json("FAIL", JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -448,6 +442,33 @@ namespace EngineerCodeFirst.Controllers
             }
             return Json("FAIL", JsonRequestBehavior.AllowGet);
         }
+
+        [HttpPost]
+        /*
+         * Sends the data of bus assigned to desired lineid
+         * */
+        public ActionResult GetBusData()
+        {
+            try
+            {
+                Request.InputStream.Position = 0;
+                var result = new System.IO.StreamReader(Request.InputStream).ReadToEnd();
+
+
+                int lineID = JsonConvert.DeserializeObject<int>(result);
+                Bus correspondingBus = db.Buses.Find( (db.Lines.Find(lineID).Buses.First().BusID) );
+                BusForApps busToSend = new BusForApps(correspondingBus);
+
+                return Json(busToSend, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return Json("FAIL", JsonRequestBehavior.AllowGet);
+        }
+
+        
 
     }
 }

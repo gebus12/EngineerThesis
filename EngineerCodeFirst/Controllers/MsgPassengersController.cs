@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using EngineerCodeFirst.DAL;
 using EngineerCodeFirst.Models;
+using System.Web.Script.Serialization;
 
 namespace EngineerCodeFirst.Controllers
 {
@@ -128,6 +129,39 @@ namespace EngineerCodeFirst.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        //**************************//
+
+        [HttpPost]
+        public ActionResult getMessageFromPassenger()
+        {
+            MsgPassenger receivedMessage = new MsgPassenger();
+            try
+            {
+                Request.InputStream.Position = 0;
+                var jsonString = new System.IO.StreamReader(Request.InputStream).ReadToEnd();
+                JavaScriptSerializer js = new JavaScriptSerializer();
+
+                receivedMessage = js.Deserialize<MsgPassenger>(jsonString);
+                receivedMessage.Status = Status.Unread;
+                receivedMessage.Bus = db.Buses.Find(receivedMessage.BusID);
+                receivedMessage.ValidityPeriod = 10;
+                receivedMessage.Status = Status.Unread;
+                db.MsgPassengers.Add(receivedMessage);
+
+                db.SaveChanges();
+
+                String message = "DONE"; // change this value to some global constant
+                return Json(message, JsonRequestBehavior.AllowGet);
+            }
+
+            catch (Exception ex)
+            {
+                // Creation failed
+                String message = "FAIL"; // change this value to some global constant
+                return Json(message, JsonRequestBehavior.AllowGet);
+            }
         }
     }
 }
